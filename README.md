@@ -1,3 +1,4 @@
+<img width="1920" height="1080" alt="Screenshot from 2026-06-14 11-00-15" src="https://github.com/user-attachments/assets/ffd31e4e-dacd-4147-be26-b3910de7f36b" />
 # Hardware Monitor
 
 Um painel web simples (mas funcional)  em tempo real para monitorar os recursos do seu computador — CPU, memória, disco, rede e temperatura — via interface web .
