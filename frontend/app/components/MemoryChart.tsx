@@ -17,26 +17,34 @@ export function MemoryChart({ metrics }: { metrics: Metrics }) {
     datasets: [
       {
         data: [memory.used, memory.free],
-        backgroundColor: ["#8b5cf6", "rgba(255,255,255,0.05)"],
+        backgroundColor: ["#2563eb", "rgba(255,255,255,0.04)"],
         borderWidth: 0,
       },
     ],
   };
 
   const options = {
-    cutout: "75%",
+    cutout: "78%",
     responsive: true,
     maintainAspectRatio: false,
     plugins: { legend: { display: false }, tooltip: { enabled: false } },
-    animation: { duration: 300 },
+    animation: { duration: 150 },
   };
 
   return (
     <div className="relative flex items-center justify-center" style={{ height: 160 }}>
       <Doughnut data={data} options={options as never} />
       <div className="absolute text-center pointer-events-none">
-        <p className="text-2xl font-bold text-white">{memory.usedPercent}%</p>
-        <p className="text-xs text-gray-400">
+        <p
+          className="text-2xl font-semibold"
+          style={{ color: "var(--color-text-primary)" }}
+        >
+          {memory.usedPercent}%
+        </p>
+        <p
+          className="text-xs mt-0.5"
+          style={{ color: "var(--color-text-secondary)", fontFamily: "var(--font-mono)" }}
+        >
           {formatBytes(memory.used)} / {formatBytes(memory.total)}
         </p>
       </div>

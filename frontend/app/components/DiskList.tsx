@@ -8,30 +8,45 @@ function formatBytes(bytes: number) {
 }
 
 function barColor(percent: number) {
-  if (percent < 60) return "bg-emerald-500";
-  if (percent < 85) return "bg-yellow-500";
-  return "bg-red-500";
+  if (percent < 60) return "#2563eb";
+  if (percent < 85) return "#d97706";
+  return "#dc2626";
 }
 
 export function DiskList({ disk }: { disk: Metrics["disk"] }) {
   const validDisks = disk.filter((d) => d.size > 0 && isFinite(d.usedPercent));
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {validDisks.map((d) => (
         <div key={d.mount}>
-          <div className="flex justify-between text-xs text-gray-400 mb-1">
-            <span className="font-medium text-gray-300">{d.mount}</span>
+          <div
+            className="flex justify-between text-xs mb-2"
+            style={{ color: "var(--color-text-secondary)", fontFamily: "var(--font-mono)" }}
+          >
+            <span style={{ color: "var(--color-text-primary)" }}>{d.mount}</span>
             <span>
               {formatBytes(d.used)} / {formatBytes(d.size)}
             </span>
           </div>
-          <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+          <div
+            className="h-1 rounded-full overflow-hidden"
+            style={{ background: "rgba(255,255,255,0.06)" }}
+          >
             <div
-              className={`h-full rounded-full transition-all duration-500 ${barColor(d.usedPercent)}`}
-              style={{ width: `${d.usedPercent}%` }}
+              className="h-full rounded-full"
+              style={{
+                width: `${d.usedPercent}%`,
+                background: barColor(d.usedPercent),
+                transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)",
+              }}
             />
           </div>
-          <p className="text-xs text-gray-500 mt-0.5 text-right">{d.usedPercent}%</p>
+          <p
+            className="text-xs mt-1 text-right"
+            style={{ color: "var(--color-text-secondary)", fontFamily: "var(--font-mono)" }}
+          >
+            {d.usedPercent}%
+          </p>
         </div>
       ))}
     </div>

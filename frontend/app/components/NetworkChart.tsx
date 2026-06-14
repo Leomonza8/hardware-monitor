@@ -27,22 +27,22 @@ export function NetworkChart({ history }: { history: Metrics[] }) {
     labels: history.map(() => ""),
     datasets: [
       {
-        label: "Download",
+        label: "↓ Download",
         data: history.map((m) => m.network[0]?.rxSec ?? 0),
         fill: true,
-        borderColor: "#10b981",
-        backgroundColor: "rgba(16, 185, 129, 0.1)",
-        borderWidth: 2,
+        borderColor: "#2563eb",
+        backgroundColor: "rgba(37, 99, 235, 0.08)",
+        borderWidth: 1.5,
         pointRadius: 0,
         tension: 0.4,
       },
       {
-        label: "Upload",
+        label: "↑ Upload",
         data: history.map((m) => m.network[0]?.txSec ?? 0),
         fill: true,
-        borderColor: "#f59e0b",
-        backgroundColor: "rgba(245, 158, 11, 0.1)",
-        borderWidth: 2,
+        borderColor: "#9ca3af",
+        backgroundColor: "rgba(156, 163, 175, 0.06)",
+        borderWidth: 1.5,
         pointRadius: 0,
         tension: 0.4,
       },
@@ -56,17 +56,23 @@ export function NetworkChart({ history }: { history: Metrics[] }) {
       x: { display: false },
       y: {
         min: 0,
-        grid: { color: "rgba(255,255,255,0.05)" },
+        grid: { color: "rgba(255,255,255,0.04)" },
         ticks: {
-          color: "#6b7280",
+          color: "#9ca3af",
+          font: { family: "var(--font-mono)", size: 10 },
           callback: (v: string | number) => formatSpeed(Number(v)),
         },
+        border: { color: "rgba(255,255,255,0.07)" },
       },
     },
     plugins: {
       legend: {
         display: true,
-        labels: { color: "#9ca3af", boxWidth: 12, font: { size: 11 } },
+        labels: {
+          color: "#9ca3af",
+          boxWidth: 10,
+          font: { size: 10, family: "var(--font-mono)" },
+        },
       },
     },
     animation: { duration: 0 },
@@ -75,8 +81,11 @@ export function NetworkChart({ history }: { history: Metrics[] }) {
   return (
     <div>
       {latest && (
-        <p className="text-xs text-gray-500 mb-2">
-          {latest.iface} — ↓ {formatSpeed(latest.rxSec)} · ↑ {formatSpeed(latest.txSec)}
+        <p
+          className="text-xs mb-3"
+          style={{ color: "var(--color-text-secondary)", fontFamily: "var(--font-mono)" }}
+        >
+          {latest.iface} · ↓ {formatSpeed(latest.rxSec)} · ↑ {formatSpeed(latest.txSec)}
         </p>
       )}
       <div style={{ height: 120 }}>
