@@ -14,9 +14,10 @@ function barColor(percent: number) {
 }
 
 export function DiskList({ disk }: { disk: Metrics["disk"] }) {
+  const validDisks = disk.filter((d) => d.size > 0 && isFinite(d.usedPercent));
   return (
     <div className="space-y-4">
-      {disk.map((d) => (
+      {validDisks.map((d) => (
         <div key={d.mount}>
           <div className="flex justify-between text-xs text-gray-400 mb-1">
             <span className="font-medium text-gray-300">{d.mount}</span>

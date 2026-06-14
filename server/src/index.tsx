@@ -38,7 +38,14 @@ async function collectMetrics() {
       usedPercent: parseFloat(((mem.used / mem.total) * 100).toFixed(1)),
     },
     disk: disk
-      .filter((d) => d.size > 0 && d.type !== "squashfs")
+      .filter(
+        (d) =>
+          d.size > 0 &&
+          d.type !== "squashfs" &&
+          !d.mount.startsWith("/sys") &&
+          !d.mount.startsWith("/proc") &&
+          !d.mount.startsWith("/dev")
+      )
       .map((d) => ({
         fs: d.fs,
         mount: d.mount,
