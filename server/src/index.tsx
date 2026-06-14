@@ -37,13 +37,15 @@ async function collectMetrics() {
       free: mem.free,
       usedPercent: parseFloat(((mem.used / mem.total) * 100).toFixed(1)),
     },
-    disk: disk.map((d) => ({
-      fs: d.fs,
-      mount: d.mount,
-      size: d.size,
-      used: d.used,
-      usedPercent: parseFloat(d.use.toFixed(1)),
-    })),
+    disk: disk
+      .filter((d) => d.size > 0 && d.type !== "squashfs")
+      .map((d) => ({
+        fs: d.fs,
+        mount: d.mount,
+        size: d.size,
+        used: d.used,
+        usedPercent: parseFloat(d.use.toFixed(1)),
+      })),
     network: network.map((n) => ({
       iface: n.iface,
       rxSec: n.rx_sec ?? 0,
