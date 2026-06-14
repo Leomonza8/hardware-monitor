@@ -21,9 +21,9 @@ export function CpuChart({ history }: { history: Metrics[] }) {
       {
         data: history.map((m) => m.cpu.load),
         fill: true,
-        borderColor: "#3b82f6",
-        backgroundColor: "rgba(59, 130, 246, 0.15)",
-        borderWidth: 2,
+        borderColor: "#2563eb",
+        backgroundColor: "rgba(37, 99, 235, 0.1)",
+        borderWidth: 1.5,
         pointRadius: 0,
         tension: 0.4,
       },
@@ -38,11 +38,13 @@ export function CpuChart({ history }: { history: Metrics[] }) {
       y: {
         min: 0,
         max: 100,
-        grid: { color: "rgba(255,255,255,0.05)" },
+        grid: { color: "rgba(255,255,255,0.04)" },
         ticks: {
-          color: "#6b7280",
+          color: "#9ca3af",
+          font: { family: "var(--font-mono)", size: 10 },
           callback: (v: string | number) => `${v}%`,
         },
+        border: { color: "rgba(255,255,255,0.07)" },
       },
     },
     plugins: { legend: { display: false } },
